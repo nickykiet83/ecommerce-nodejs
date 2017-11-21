@@ -35,17 +35,20 @@ router.post('/signup', function (req, res, next) {
     user.profile.name = req.body.name;
     user.email = req.body.email;
     user.password = req.body.password;
-    console.log(req.body);
 
     User.findOne({ email: req.body.email }, function (err, existingUser) {
         if (existingUser) {
             req.flash('errors', 'Account with that email address already exists');
             return res.redirect('/signup');
         } else {
-            user.save(function (err) {
+            user.save(function (err, user) {
                 if (err) return next(err);
 
-                return res.redirect('/');
+                //return res.redirect('/');
+                req.logIn(user, function(err) {
+                    if (err) return next(err);
+                    res.redirect('/profile');
+                })
             });
         }
     });

@@ -43,6 +43,10 @@ app.get('/', function (req, res){
     res.render('home');
 });
 
+app.get('/about', function(req, res) {
+    res.render('about');
+});
+
 app.listen(port, function(err) {
     if (err) throw err;
     console.log("Server is Running at port: " + port);

@@ -5,6 +5,9 @@ var bodyParser = require('body-parser');
 const port = 3000;
 var ejs = require('ejs');
 var engine = require('ejs-mate');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
+var flash = require('express-flash');
 
 var app = express();
 
@@ -23,6 +26,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
+app.use(cookieParser());
+app.use(session({
+    resave: true,
+    saveUninitialized: true,
+    secret: "KietPham@TuPham"
+}));
+app.use(flash());
 
 var mainRoutes = require('./routes/main');
 var userRoutes = require('./routes/user');

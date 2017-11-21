@@ -2,16 +2,17 @@ var express = require('express');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-const port = 3000;
 var ejs = require('ejs');
 var engine = require('ejs-mate');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var flash = require('express-flash');
 
+var secret = require('./config/secret');
+
 var app = express();
 
-mongoose.connect('mongodb://root:123456@ds113906.mlab.com:13906/ecommerce', function(err) {
+mongoose.connect(secret.database, function(err) {
     if (err) {
         console.log(err);
     } else {
@@ -30,7 +31,7 @@ app.use(cookieParser());
 app.use(session({
     resave: true,
     saveUninitialized: true,
-    secret: "KietPham@TuPham"
+    secret: secret.secretKey
 }));
 app.use(flash());
 
@@ -41,7 +42,7 @@ app.use(mainRoutes);
 app.use(userRoutes);
 
 
-app.listen(port, function(err) {
+app.listen(secret.port, function(err) {
     if (err) throw err;
-    console.log("Server is Running at port: " + port);
+    console.log("Server is Running at port: " + secret.port);
 });

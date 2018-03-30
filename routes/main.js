@@ -10,7 +10,7 @@ router.get('/about', function(req, res) {
     res.render('main/about');
 });
 
-router.get('/products/:id', function (req, res) {
+router.get('/products/:id', function (req, res, next) {
     Product
         .find({ category: req.params.id })
         .populate('category')

@@ -16,7 +16,7 @@
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
                     <% for (var i = 0; i < categories.length; i++) { %>
-                        <a class="dropdown-item"><%= categories[i].name %></a>
+                        <a href="/products/<%= categories[i]._id%>" class="dropdown-item"><%= categories[i].name %></a>
                     <% } %>
                 </div>
             </li>

@@ -1,0 +1,10 @@
+https://mlab.com
+username: rickykiet83
+
+- start server
+nodemon
+
+- install elest
+brew install elasticsearch
+- start elasticsearch
+elasticsearch

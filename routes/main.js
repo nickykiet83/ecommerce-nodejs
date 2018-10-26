@@ -1,6 +1,7 @@
 var router = require("express").Router();
 var User = require("../models/user");
-var Product = require("../models/product");
+var Product = require('./../models/product');
+var ProductComment = require('./../models/product-comment');
 
 function paginate(req, res, next) {
   var perPage = 9;
@@ -100,8 +101,29 @@ router.get("/products/:id", function(req, res, next) {
 router.get("/product/:id", function(req, res, next) {
   Product.findById({ _id: req.params.id }, function(err, product) {
     if (err) return next(err);
-    res.render("main/product", {
-      product: product
+    ProductComment.find({ product: req.params.id })
+      .populate('product')
+      .exec((err, comments) => {
+        if (err) return next(err);
+        res.render("main/product", {
+          product: product,
+          comments: comments || []
+        });
+      })
+  });
+});
+
+router.post("/product/:id", function(req, res, next) {
+  Product.findById({ _id: req.params.id }, function(err, product) {
+    if (err) return next(err);
+    var pComment = new ProductComment();
+    pComment.product = product._id;
+    const comment_text = req.body.comment;
+    pComment.text= comment_text;
+    pComment.save(function (err) {
+      if (err) return next(err);
+      req.flash('success', 'Successfully added a comment');
+      res.redirect(`/product/${req.params.id}`);
     });
   });
 });

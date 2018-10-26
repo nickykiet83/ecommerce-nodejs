@@ -16,7 +16,7 @@ var Category = require('./models/category');
 
 var app = express();
 
-mongoose.connect(secret.database, function (err) {
+mongoose.connect(secret.database, {useNewUrlParser: true}, function (err) {
     if (err) {
         console.log(err);
     } else {

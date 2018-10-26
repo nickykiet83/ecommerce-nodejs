@@ -1,6 +1,8 @@
 https://mlab.com
 username: rickykiet83
 
+database: mongodb://root:123456@ds113906.mlab.com:13906/ecommerce
+
 - userlogin:
 email: kiet.pham2610@gmail.com
 pass: 123456
@@ -12,3 +14,9 @@ nodemon
 brew install elasticsearch
 - start elasticsearch
 elasticsearch
+
+--> start elasticsearch before start server
+
+* for starting from clean database:
+- 1. Create a user
+- 2. go to route: /add-category to create at least one category first (api/)

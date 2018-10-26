@@ -1,5 +1,5 @@
 module.exports = {
-    database: 'mongodb://root:123456@ds113906.mlab.com:13906/ecommerce',
-    port: 3000,
+    database: 'mongodb://localhost/ecommerce',
+    port: 3004,
     secretKey: 'KietPham@TuPham'
 }

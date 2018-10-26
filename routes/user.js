@@ -16,6 +16,9 @@ router.post('/login', passport.authenticate('local-login', {
 }));
 
 router.get('/profile', function(req, res, next) {
+    if (!req.user) {
+        res.redirect('/login');
+    }
     User.findOne({ _id: req.user._id }, function(err, user) {
         if (err) return next(err);
 
